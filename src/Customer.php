@@ -26,18 +26,10 @@ class Customer
     public function statement(): string
     {
         $totalAmount = 0;
-        $frequentRenterPoints = 0;
-        $rentals = $this->rentals;
-
         $result = "Rental records for " . $this->name() . "\n";
 
-        foreach ($rentals as $rental) {
-            $frequentRenterPoints++;
-
-            if ($rental->daysRented() > 1 && $rental->movie()->priceCode() === Movie::NEW_RELEASE) {
-                $frequentRenterPoints++;
-            }
-
+        foreach ($this->rentals as $rental) {
+            /** @var Rental $rental */
             $result .= "\t" . $rental->movie()->title() . "\t" . $rental->getCharge() . "\n";
 
             $totalAmount += $rental->getCharge();
@@ -45,7 +37,19 @@ class Customer
 
         $result .= 'Amount owed is '
             . $totalAmount . "\n"
-            . 'You earned ' . $frequentRenterPoints . ' frequent renter points';
+            . 'You earned ' . $this->getTotalRenterPoints() . ' frequent renter points';
+
+        return $result;
+    }
+
+    private function getTotalRenterPoints(): int
+    {
+        $result = 0;
+
+        foreach ($this->rentals as $rental) {
+            /** @var Rental $rental */
+            $result += $rental->getFrequentRenterPoints();
+        }
 
         return $result;
     }
