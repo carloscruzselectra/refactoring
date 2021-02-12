@@ -32,17 +32,15 @@ class Customer
         $result = "Rental records for " . $this->name() . "\n";
 
         foreach ($rentals as $rental) {
-            $localAmount = $rental->getCharge();
-
             $frequentRenterPoints++;
 
             if ($rental->daysRented() > 1 && $rental->movie()->priceCode() === Movie::NEW_RELEASE) {
                 $frequentRenterPoints++;
             }
 
-            $result .= "\t" . $rental->movie()->title() . "\t" . $localAmount . "\n";
+            $result .= "\t" . $rental->movie()->title() . "\t" . $rental->getCharge() . "\n";
 
-            $totalAmount += $localAmount;
+            $totalAmount += $rental->getCharge();
         }
 
         $result .= 'Amount owed is '
