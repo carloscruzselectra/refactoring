@@ -1,0 +1,10 @@
+{
+    "name": "subsider/refactoring",
+    "authors": [
+        {
+            "name": "Carlos Cruz",
+            "email": "carlos.cruz@selectra.info"
+        }
+    ],
+    "require": {}
+}
