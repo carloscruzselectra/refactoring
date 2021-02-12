@@ -42,6 +42,25 @@ class Customer
         return $result;
     }
 
+    public function htmlStatement(): string
+    {
+        $totalAmount = 0;
+        $result = "<h1><em>Rental records for " . $this->name() . "</em></h1>";
+
+        foreach ($this->rentals as $rental) {
+            /** @var Rental $rental */
+            $result .= $rental->movie()->title() . ": " . $rental->getCharge() . "<br>";
+
+            $totalAmount += $rental->getCharge();
+        }
+
+        $result .= "<p>Amount owed is "
+            . $totalAmount . "</p>"
+            . "<p>You earned " . $this->getTotalRenterPoints() . " frequent renter points</p>";
+
+        return $result;
+    }
+
     private function getTotalRenterPoints(): int
     {
         $result = 0;
