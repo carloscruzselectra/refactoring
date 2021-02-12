@@ -32,7 +32,7 @@ class Customer
         $result = "Rental records for " . $this->name() . "\n";
 
         foreach ($rentals as $rental) {
-            $localAmount = $this->amountFor($rental);
+            $localAmount = $rental->getCharge();
 
             $frequentRenterPoints++;
 
@@ -50,10 +50,5 @@ class Customer
             . 'You earned ' . $frequentRenterPoints . ' frequent renter points';
 
         return $result;
-    }
-
-    private function amountFor(Rental $rental): float
-    {
-        return $rental->getCharge();
     }
 }
