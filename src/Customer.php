@@ -54,28 +54,6 @@ class Customer
 
     private function amountFor(Rental $rental): float
     {
-        $result = 0;
-
-        switch ($rental->movie()->priceCode()) {
-            case Movie::REGULAR:
-                $result += 2;
-                if ($rental->daysRented() > 2) {
-                    $result += ($rental->daysRented() - 2) * 1.5;
-                }
-                break;
-            case Movie::NEW_RELEASE:
-                $result += $rental->daysRented() * 3;
-                break;
-            case Movie::CHILDREN:
-                $result += 1.5;
-                if ($rental->daysRented() > 3) {
-                    $result += ($rental->daysRented() - 3) * 1.5;
-                }
-                break;
-            default:
-                break;
-        }
-
-        return $result;
+        return $rental->getCharge();
     }
 }
