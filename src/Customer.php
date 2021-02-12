@@ -32,27 +32,7 @@ class Customer
         $result = "Rental records for " . $this->name() . "\n";
 
         foreach ($rentals as $rental) {
-            $localAmount = 0;
-            /** @var Rental $rental */
-            switch ($rental->movie()->priceCode()) {
-                case Movie::REGULAR:
-                    $localAmount += 2;
-                    if ($rental->daysRented() > 2) {
-                        $localAmount += ($rental->daysRented() - 2) * 1.5;
-                    }
-                    break;
-                case Movie::NEW_RELEASE:
-                    $localAmount += $rental->daysRented() * 3;
-                    break;
-                case Movie::CHILDREN:
-                    $localAmount += 1.5;
-                    if ($rental->daysRented() > 3) {
-                        $localAmount += ($rental->daysRented() - 3) * 1.5;
-                    }
-                    break;
-                default:
-                    break;
-            }
+            $localAmount = $this->amountFor($rental);
 
             $frequentRenterPoints++;
 
@@ -70,5 +50,32 @@ class Customer
             . 'You earned ' . $frequentRenterPoints . ' frequent renter points';
 
         return $result;
+    }
+
+    private function amountFor(Rental $rental): float
+    {
+        $localAmount = 0;
+
+        switch ($rental->movie()->priceCode()) {
+            case Movie::REGULAR:
+                $localAmount += 2;
+                if ($rental->daysRented() > 2) {
+                    $localAmount += ($rental->daysRented() - 2) * 1.5;
+                }
+                break;
+            case Movie::NEW_RELEASE:
+                $localAmount += $rental->daysRented() * 3;
+                break;
+            case Movie::CHILDREN:
+                $localAmount += 1.5;
+                if ($rental->daysRented() > 3) {
+                    $localAmount += ($rental->daysRented() - 3) * 1.5;
+                }
+                break;
+            default:
+                break;
+        }
+
+        return $localAmount;
     }
 }
