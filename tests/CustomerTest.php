@@ -9,25 +9,21 @@ use PHPUnit\Framework\TestCase;
 
 class CustomerTest extends TestCase
 {
-    private $movie1;
-    private $movie2;
-    private $movie3;
-    private $movie4;
     private $customer;
 
     protected function setUp(): void
     {
-        $this->movie1 = new Movie('Home Alone', Movie::CHILDREN);
-        $this->movie2 = new Movie('The Goonies', Movie::CHILDREN);
-        $this->movie3 = new Movie('Tenet', Movie::NEW_RELEASE);
-        $this->movie4 = new Movie('Pride and Prejudice', Movie::REGULAR);
+        $movie1 = new Movie('Home Alone', Movie::CHILDREN);
+        $movie2 = new Movie('The Goonies', Movie::CHILDREN);
+        $movie3 = new Movie('Tenet', Movie::NEW_RELEASE);
+        $movie4 = new Movie('Pride and Prejudice', Movie::REGULAR);
 
         $this->customer = new Customer('Carlos');
 
-        $this->customer->addRental(new Rental($this->movie1, 2));
-        $this->customer->addRental(new Rental($this->movie2, 3));
-        $this->customer->addRental(new Rental($this->movie3, 1));
-        $this->customer->addRental(new Rental($this->movie4, 5));
+        $this->customer->addRental(new Rental($movie1, 2));
+        $this->customer->addRental(new Rental($movie2, 3));
+        $this->customer->addRental(new Rental($movie3, 1));
+        $this->customer->addRental(new Rental($movie4, 5));
 
         parent::setUp();
     }

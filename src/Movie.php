@@ -32,4 +32,31 @@ class Movie
     {
         $this->priceCode = $priceCode;
     }
+
+    public function getCharge(int $daysRented): float
+    {
+        $result = 0;
+
+        switch ($this->priceCode()) {
+            case self::REGULAR:
+                $result += 2;
+                if ($daysRented > 2) {
+                    $result += ($daysRented - 2) * 1.5;
+                }
+                break;
+            case self::NEW_RELEASE:
+                $result += $daysRented * 3;
+                break;
+            case self::CHILDREN:
+                $result += 1.5;
+                if ($daysRented > 3) {
+                    $result += ($daysRented - 3) * 1.5;
+                }
+                break;
+            default:
+                break;
+        }
+
+        return $result;
+    }
 }
