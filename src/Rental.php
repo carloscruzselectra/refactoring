@@ -24,6 +24,11 @@ class Rental
         return $this->daysRented;
     }
 
+    public function getCharge(): float
+    {
+        return $this->movie()->getCharge($this->daysRented());
+    }
+
     public function getFrequentRenterPoints(): int
     {
         $frequentRenterPoints = 1;

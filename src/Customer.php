@@ -30,9 +30,9 @@ class Customer
 
         foreach ($this->rentals as $rental) {
             /** @var Rental $rental */
-            $result .= "\t" . $rental->movie()->title() . "\t" . $rental->movie()->getCharge($rental->daysRented()) . "\n";
+            $result .= "\t" . $rental->movie()->title() . "\t" . $rental->getCharge() . "\n";
 
-            $totalAmount += $rental->movie()->getCharge($rental->daysRented());
+            $totalAmount += $rental->getCharge();
         }
 
         $result .= 'Amount owed is '
@@ -49,9 +49,9 @@ class Customer
 
         foreach ($this->rentals as $rental) {
             /** @var Rental $rental */
-            $result .= $rental->movie()->title() . ": " . $rental->movie()->getCharge($rental->daysRented()) . "<br>";
+            $result .= $rental->movie()->title() . ": " . $rental->getCharge() . "<br>";
 
-            $totalAmount += $rental->movie()->getCharge($rental->daysRented());
+            $totalAmount += $rental->getCharge();
         }
 
         $result .= "<p>Amount owed is "
