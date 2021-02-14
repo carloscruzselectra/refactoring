@@ -2,6 +2,8 @@
 
 namespace App;
 
+use http\Exception\InvalidArgumentException;
+
 class Movie
 {
     public const CHILDREN = 2;
@@ -10,12 +12,13 @@ class Movie
 
     private $title;
 
-    private $priceCode;
+    /** @var Price */
+    private $price;
 
     public function __construct(string $title, int $priceCode)
     {
         $this->title = $title;
-        $this->priceCode = $priceCode;
+        $this->setPriceCode($priceCode);
     }
 
     public function title(): string
@@ -25,12 +28,24 @@ class Movie
 
     public function priceCode(): int
     {
-        return $this->priceCode;
+        return $this->price->getPrice();
     }
 
     public function setPriceCode(int $priceCode): void
     {
-        $this->priceCode = $priceCode;
+        switch ($priceCode) {
+            case self::REGULAR:
+                $this->price = new RegularPrice();
+                break;
+            case self::NEW_RELEASE:
+                $this->price = new NewReleasePrice();
+                break;
+            case self::CHILDREN:
+                $this->price = new ChildrenPrice();
+                break;
+            default:
+                throw new InvalidArgumentException('Incorrect price code');
+        }
     }
 
     public function getCharge(int $daysRented): float
