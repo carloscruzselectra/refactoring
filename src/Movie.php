@@ -50,39 +50,11 @@ class Movie
 
     public function getCharge(int $daysRented): float
     {
-        $result = 0;
-
-        switch ($this->priceCode()) {
-            case self::REGULAR:
-                $result += 2;
-                if ($daysRented > 2) {
-                    $result += ($daysRented - 2) * 1.5;
-                }
-                break;
-            case self::NEW_RELEASE:
-                $result += $daysRented * 3;
-                break;
-            case self::CHILDREN:
-                $result += 1.5;
-                if ($daysRented > 3) {
-                    $result += ($daysRented - 3) * 1.5;
-                }
-                break;
-            default:
-                break;
-        }
-
-        return $result;
+        return $this->price->getCharge($daysRented);
     }
 
     public function getFrequentRenterPoints(int $daysRented): int
     {
-        $frequentRenterPoints = 1;
-
-        if ($daysRented > 1 && $this->priceCode() === self::NEW_RELEASE) {
-            $frequentRenterPoints++;
-        }
-
-        return $frequentRenterPoints;
+        return $this->price->getFrequentRenterPoints($daysRented);
     }
 }

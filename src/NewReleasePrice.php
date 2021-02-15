@@ -8,4 +8,9 @@ class NewReleasePrice extends Price
     {
         return Movie::NEW_RELEASE;
     }
+
+    public function getFrequentRenterPoints(int $daysRented): int
+    {
+        return $daysRented > 1 ? 2 : 1;
+    }
 }
