@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Videoclub;
 
 use http\Exception\InvalidArgumentException;
 
@@ -31,7 +31,12 @@ class Movie
         return $this->price->getPrice();
     }
 
-    public function setPriceCode(int $priceCode): void
+    public function price(): Price
+    {
+        return $this->price;
+    }
+
+    private function setPriceCode(int $priceCode): void
     {
         switch ($priceCode) {
             case self::REGULAR:

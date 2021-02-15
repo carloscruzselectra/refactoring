@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests;
+namespace Tests\Videoclub;
 
-use App\Customer;
-use App\Movie;
-use App\Rental;
+use App\Videoclub\Customer;
+use App\Videoclub\Movie;
+use App\Videoclub\Rental;
 use PHPUnit\Framework\TestCase;
 
 class CustomerTest extends TestCase
